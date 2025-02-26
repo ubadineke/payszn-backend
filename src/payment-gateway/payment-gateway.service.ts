@@ -1,49 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { Connection } from '@solana/web3.js';
+import { TransactionsService } from 'src/transactions/transactions.service';
 
 @Injectable()
 export class PaymentGatewayService {
   private connection: Connection;
 
-  constructor() {
+  constructor(private transactionsService: TransactionsService) {
     this.connection = new Connection(
       'https://api.mainnet-beta.solana.com',
       'confirmed',
     ); // Use mainnet or devnet
   }
 
-  async confirmTransaction(signature: string, expectedReceiver: string) {
-    try {
-      const transaction = await this.connection.getParsedTransaction(
-        signature,
-        { commitment: 'confirmed', maxSupportedTransactionVersion: 0 },
-      );
-      console.log('Transaction', transaction);
+  async processTransaction(signature: string, expectedReceiver: string) {
+    const confirmedTx = await this.transactionsService.confirmTransaction(
+      this.connection,
+      signature,
+      expectedReceiver,
+    );
 
-      if (!transaction) {
-        throw new Error('Transaction not found or not confirmed.');
-      }
+    //Update Transaction History
+    const transaction = await this.transactionsService.createTransaction(
+      confirmedTx.signature,
+      confirmedTx.sender,
+      confirmedTx.receiver,
+      confirmedTx.destinationToken.amount as string,
+    );
 
-      // Check if transaction was successful
-      const success = transaction.meta?.err === null;
-      // console.log('Successful?', success);
-      if (!success) {
-        return false;
-      }
+    console.log('Transaction', transaction);
 
-      // Verify if the expected receiver is in the transaction
-      const receiverExists = transaction.transaction.message.accountKeys.some(
-        (key) => key.pubkey.toBase58() === expectedReceiver,
-      );
+    //Send update to the appplication registered Webhook
 
-      if (!receiverExists) {
-        return false;
-      }
-      // console.log('elon', receiverExists);
-      return true;
-    } catch (error) {
-      console.error('Error confirming transaction:', error.message);
-      return false;
-    }
+    return { message: 'Transaction successful', confirmedTx };
   }
 }

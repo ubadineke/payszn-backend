@@ -12,6 +12,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { UsersService } from './users/users.service';
 import { PaymentGatewayModule } from './payment-gateway/payment-gateway.module';
+import { TransactionsModule } from './transactions/transactions.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { PaymentGatewayModule } from './payment-gateway/payment-gateway.module';
     UsersModule,
     TypeOrmModule.forFeature([User]),
     PaymentGatewayModule,
+    TransactionsModule,
   ],
   controllers: [AppController, AuthController],
   providers: [
