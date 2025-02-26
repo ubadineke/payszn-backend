@@ -28,7 +28,7 @@ export class PaymentGatewayService {
       confirmedTx.destinationToken.amount as string,
     );
 
-    console.log('Transaction', transaction);
+    // console.log('Transaction', transaction);
 
     //Send update to the appplication registered Webhook
 

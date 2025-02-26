@@ -22,7 +22,6 @@ export class PrivyAuthGuard implements CanActivate {
     try {
       // Verify the token
       const verifiedToken = await this.privyService.verifyToken(token);
-      console.log('Vsa', verifiedToken);
 
       // Get additional user data if needed
       // const userData = await this.privyService.getUserData(request);

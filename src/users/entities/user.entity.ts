@@ -14,6 +14,9 @@ export class User {
   @Column()
   email: string;
 
+  @Column()
+  wallet: string;
+
   @Column({ nullable: true })
   apiKey: string;
 

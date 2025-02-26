@@ -20,9 +20,20 @@ export class PrivyService {
     );
   }
   async verifyToken(token: string): Promise<any> {
+    if (!token) {
+      throw new UnauthorizedException('Token is missing');
+    }
     try {
+      // const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
+      // const PRIVY_APP_SECRET = process.env.PRIVY_APP_SECRET;
+      // const client = new PrivyClient(PRIVY_APP_ID!, PRIVY_APP_SECRET!);
+      // console.log(client);
+      // const claims = await client.verifyAuthToken(token);
+      // console.log('claims', claims);
+
       // Verify the JWT token using Privy's server SDK
-      console.log('incoming token', token);
+      // console.log('incoming token', token);
+      // console.log(this.privyClient);
       const verifiedToken = await this.privyClient.verifyAuthToken(token);
       return verifiedToken;
     } catch (error) {

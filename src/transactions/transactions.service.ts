@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { Connection } from '@solana/web3.js';
@@ -47,6 +47,7 @@ export class TransactionsService {
   // remove(id: number) {
   //   return `This action removes a #${id} transaction`;
   // }
+
   async createTransaction(
     signature: string,
     sender: string,
@@ -63,6 +64,16 @@ export class TransactionsService {
     return await this.transactionRepository.save(transaction);
   }
 
+  async fetchTransactionsByUser(walletAddress: string) {
+    const transactions = await this.transactionRepository.find({
+      where: { receiver: walletAddress },
+    });
+
+    if (!transactions || transactions.length == 0)
+      throw new NotFoundException('No transactions recorded for user');
+
+    return transactions;
+  }
   async confirmTransaction(
     connection: Connection,
     signature: string,

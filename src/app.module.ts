@@ -13,9 +13,13 @@ import { User } from './users/entities/user.entity';
 import { UsersService } from './users/users.service';
 import { PaymentGatewayModule } from './payment-gateway/payment-gateway.module';
 import { TransactionsModule } from './transactions/transactions.module';
+import { JwtService } from '@nestjs/jwt';
+import { TransactionsService } from './transactions/transactions.service';
+import { Transaction } from './transactions/entities/transaction.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([Transaction]),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -39,6 +43,8 @@ import { TransactionsModule } from './transactions/transactions.module';
   controllers: [AppController, AuthController],
   providers: [
     UsersService,
+    TransactionsService,
+    JwtService,
     AuthService,
     ConfigService,
     PrivyService,

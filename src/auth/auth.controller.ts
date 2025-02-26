@@ -19,9 +19,11 @@ export class AuthController {
   @UseGuards(PrivyAuthGuard)
   @Post('login')
   login(@Req() req) {
+    console.log(req.user);
     const email = req.user.linkedAccounts[0].email;
     const name = req.user.linkedAccounts[0].name;
+    const wallet = req.user.wallet.address;
     const privyId = req.user.id;
-    return this.authService.login(email, name, privyId);
+    return this.authService.login(email, name, wallet, privyId);
   }
 }
