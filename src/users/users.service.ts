@@ -47,6 +47,8 @@ export class UsersService {
   ) {
     let user = await this.userRepository.findOne({ where: { email } });
 
+    console.log(user);
+
     if (!user) {
       user = this.userRepository.create({ email, name, wallet, privyId });
       await this.userRepository.save(user);
@@ -73,6 +75,7 @@ export class UsersService {
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
+
   async fetchUserTransactions(walletAddress: string) {
     let transactions =
       await this.transactionService.fetchTransactionsByUser(walletAddress);

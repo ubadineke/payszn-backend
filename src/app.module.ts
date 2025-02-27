@@ -20,15 +20,15 @@ import { Transaction } from './transactions/entities/transaction.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Transaction]),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'your_password',
-      database: 'cfg_backend',
-      autoLoadEntities: true, // Automatically loads entities
-      synchronize: true, // Auto-create tables (disable in production)
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        url: configService.get<string>('DATABASE_URL'),
+        autoLoadEntities: true,
+        synchronize: true, // Set to false in production
+      }),
     }),
     ConfigModule.forRoot({
       isGlobal: true,

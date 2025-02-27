@@ -35,7 +35,7 @@ export class PaymentGatewayService {
       true,
     );
 
-    console.log('Transaction', transaction);
+    // console.log('Transaction', transaction);
     //Send Notification mail to Merchant
 
     //Send update to the appplication registered Webhook

@@ -21,7 +21,6 @@ export class PaymentGatewayController {
   @Post('process')
   @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
   async processTransaction(@Body() input: ProcessTransactionDto, @Req() req) {
-    console.log(req.user);
     return this.paymentGatewayService.processTransaction(
       input.signature,
       input.expectedReceiver,
