@@ -55,7 +55,7 @@ export class PrivyService {
       throw new Error(`Failed to get user from Privy: ${error.message}`);
     }
   }
-  async getUserAgain(userId: string) {
+  async getUserDataV2(userId: string) {
     try {
       return await this.privyClient.getUser(userId);
     } catch (error) {

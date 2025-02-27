@@ -11,10 +11,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  // @UseGuards(PrivyAuthGuard)
-  // @Post('login')
-  // login(@Req() req) {
-  //   return { message: 'Login successfullyyy', user: req.user };
-  // }
 }

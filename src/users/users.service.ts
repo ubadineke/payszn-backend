@@ -47,7 +47,7 @@ export class UsersService {
   ) {
     let user = await this.userRepository.findOne({ where: { email } });
 
-    console.log(user);
+    // console.log(user);
 
     if (!user) {
       user = this.userRepository.create({ email, name, wallet, privyId });
