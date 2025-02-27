@@ -11,17 +11,6 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async login(email: string, name: string, wallet: string, privyId: string) {
-    //Create user entry or fetch existing
-    const user = await this.userService.findOrCreateUser(
-      email,
-      name,
-      wallet,
-      privyId,
-    );
-    return { message: 'Login successful', user };
-  }
-
   async generateApiKey(email: string) {
     const user = await this.userService.findUserByEmail(email);
     const payload = { ...user };

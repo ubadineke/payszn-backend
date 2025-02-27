@@ -9,7 +9,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { PaymentGatewayService } from './payment-gateway.service';
-// import ConfirmTransaction
 import { ProcessTransactionDto } from './dto/process-transaction.dto';
 import { ApiKeyGuard } from 'src/auth/apiKey.guard';
 
