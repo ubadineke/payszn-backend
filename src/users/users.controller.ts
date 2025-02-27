@@ -34,7 +34,7 @@ export class UsersController {
   }
 
   @UseGuards(PrivyAuthGuard)
-  @Get('me')
+  @Get()
   async fetchUser(@Req() req) {
     return this.usersService.findUserByEmail(req.user.linkedAccounts[0].email);
   }

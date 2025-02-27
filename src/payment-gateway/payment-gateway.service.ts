@@ -39,11 +39,10 @@ export class PaymentGatewayService {
     //Send Notification mail to Merchant
 
     //Send update to the appplication registered Webhook
-    const user = await this.usersService.findUserByWallet(expectedReceiver);
-    const webhookUrl = user.webhookUrl;
-    const callbackUrl = user.callbackUrl;
-    // const webhookUrl = 'http://fel.com/ubad';
-    // const callbackUrl = 'http:/dff.com/ad';
+    // const user = await this.usersService.findUserByWallet(expectedReceiver);
+    // const webhookUrl = user.webhookUrl;
+    const webhookUrl = 'https://3583-102-215-57-96.ngrok-free.app/webhook';
+    const callbackUrl = 'http:/dff.com/ad';
 
     if (webhookUrl) {
       try {
