@@ -29,7 +29,7 @@ export class AuthService {
       secret: this.configService.get<string>('JWT_SECRET') as string,
     });
 
-    await this.userService.updateUser(user.id, { apiKey });
+    await this.userService.updateUser(user.email, { apiKey });
 
     return { message: 'API Key successfully generated', apiKey };
   }

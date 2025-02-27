@@ -53,12 +53,14 @@ export class TransactionsService {
     sender: string,
     receiver: string,
     amount: string,
+    confirmed?: boolean,
   ) {
     const transaction = this.transactionRepository.create({
       signature,
       sender,
       receiver,
       amount,
+      confirmed,
     });
 
     return await this.transactionRepository.save(transaction);

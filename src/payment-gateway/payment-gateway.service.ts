@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { Connection } from '@solana/web3.js';
 import { TransactionsService } from 'src/transactions/transactions.service';
+import { UsersService } from 'src/users/users.service';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class PaymentGatewayService {
   private connection: Connection;
 
-  constructor(private transactionsService: TransactionsService) {
+  constructor(
+    private readonly transactionsService: TransactionsService,
+    private readonly usersService: UsersService,
+    private readonly httpService: HttpService,
+  ) {
     this.connection = new Connection(
       'https://api.mainnet-beta.solana.com',
       'confirmed',
@@ -26,12 +32,35 @@ export class PaymentGatewayService {
       confirmedTx.sender,
       confirmedTx.receiver,
       confirmedTx.destinationToken.amount as string,
+      true,
     );
 
-    // console.log('Transaction', transaction);
+    console.log('Transaction', transaction);
+    //Send Notification mail to Merchant
 
     //Send update to the appplication registered Webhook
+    const user = await this.usersService.findUserByWallet(expectedReceiver);
+    const webhookUrl = user.webhookUrl;
+    const callbackUrl = user.callbackUrl;
+    // const webhookUrl = 'http://fel.com/ubad';
+    // const callbackUrl = 'http:/dff.com/ad';
 
-    return { message: 'Transaction successful', confirmedTx };
+    if (webhookUrl) {
+      try {
+        await this.httpService.post(webhookUrl, {
+          status: 'success',
+          transaction,
+        });
+      } catch (error) {
+        console.error('Webhook failed:', error);
+      }
+    }
+
+    // Return Data for Callback URL Redirect
+    return {
+      message: 'Transaction successful',
+      transaction,
+      callbackUrl: callbackUrl, // Frontend will redirect the user here
+    };
   }
 }

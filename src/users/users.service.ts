@@ -55,8 +55,9 @@ export class UsersService {
     return user;
   }
 
-  async updateUser(id: number, update: AllowedUserUpdateDto) {
-    await this.userRepository.update(id, update);
+  async updateUser(email: string, update: AllowedUserUpdateDto) {
+    await this.userRepository.update({ email }, { ...update });
+    return { message: 'Update successful' };
   }
 
   async findUserById(id: number) {
@@ -65,6 +66,13 @@ export class UsersService {
     return user;
   }
 
+  async findUserByWallet(wallet: string) {
+    let user = await this.userRepository.findOne({
+      where: { wallet },
+    });
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
   async fetchUserTransactions(walletAddress: string) {
     let transactions =
       await this.transactionService.fetchTransactionsByUser(walletAddress);

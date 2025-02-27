@@ -8,6 +8,9 @@ import {
   Param,
   Delete,
   UseGuards,
+  Put,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -37,33 +40,18 @@ export class UsersController {
   }
 
   @UseGuards(PrivyAuthGuard)
-  @Get('transactions')
+  @Get('transactitons')
   async getTransactions(@Req() req) {
     return this.usersService.fetchUserTransactions(req.user.wallet.address);
   }
 
-  // @Post()
-  // create(@Body() createUserDto: CreateUserDto) {
-  //   return this.usersService.create(createUserDto);
-  // }
-
-  // @Get()
-  // findAll() {
-  //   return this.usersService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.usersService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(+id, updateUserDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.usersService.remove(+id);
-  // }
+  @UseGuards(PrivyAuthGuard)
+  @Patch()
+  @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
+  async updateUser(@Req() req, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateUser(
+      req.user.linkedAccounts[0].email,
+      updateUserDto,
+    );
+  }
 }
