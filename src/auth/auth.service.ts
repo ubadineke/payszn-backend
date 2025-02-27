@@ -17,22 +17,25 @@ export class AuthService {
   async generateApiKey(email: string) {
     const user = await this.userService.findUserByEmail(email);
 
-    if (!user.apiKey && !user.callbackUrl) {
+    console.log('My user', user);
+
+    if (!user.webhookUrl && !user.callbackUrl) {
       return;
     }
     const payload = { ...user };
 
     //Create JWT
-    const apiKeyJwt = this.jwtService.sign(payload, {
+    const apiKeyJwt = await this.jwtService.sign(payload, {
       secret: this.configService.get<string>('JWT_SECRET') as string,
     });
-
+    console.log('jwtapikey', apiKeyJwt);
     //Create Api Key to Map
     const apiKey = `api_${randomUUID()}`;
+    console.log(apiKey);
 
     //Store key in the api-key entity
     await this.apiKeyService.createApiTokenEntry(apiKeyJwt, apiKey, user);
-    console.log('entered here 2');
+    console.log(1);
 
     //Store in user entity
     await this.userService.updateUser(user.email, { apiKey });
