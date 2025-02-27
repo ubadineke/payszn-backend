@@ -45,8 +45,6 @@ export class PrivyAuthGuard implements CanActivate {
         privyId,
       );
 
-      console.log('user', user);
-
       // Add both token payload and user data to request
       request.user = user;
 

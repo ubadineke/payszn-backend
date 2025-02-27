@@ -8,14 +8,17 @@ import { JwtService } from '@nestjs/jwt';
 import { PrivyService } from 'src/auth/privy.service';
 import { TransactionsService } from 'src/transactions/transactions.service';
 import { Transaction } from 'src/transactions/entities/transaction.entity';
+import { ApiKeyService } from 'src/api-key/api-key.service';
+import { ApiKey } from 'src/api-key/entities/api-key.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Transaction, User])],
+  imports: [TypeOrmModule.forFeature([ApiKey, Transaction, User])],
   controllers: [UsersController],
   providers: [
     PrivyService,
     TransactionsService,
     UsersService,
+    ApiKeyService,
     JwtService,
     AuthService,
   ],

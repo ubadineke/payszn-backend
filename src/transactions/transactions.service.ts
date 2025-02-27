@@ -86,7 +86,6 @@ export class TransactionsService {
         commitment: 'confirmed',
         maxSupportedTransactionVersion: 0,
       });
-      console.log('Transaction', transaction);
 
       if (!transaction) {
         throw new Error('Transaction not found or not confirmed.');
@@ -131,8 +130,6 @@ export class TransactionsService {
         initialToken: tokenTransfers[0],
         destinationToken: tokenTransfers[1],
       };
-
-      console.log('response', response);
       return response;
     } catch (error) {
       console.error('Error confirming transaction:', error.message);

@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from 'src/users/users.service';
 import { Request } from 'express';
+import { ApiKeyService } from 'src/api-key/api-key.service';
 
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
@@ -16,24 +17,29 @@ export class ApiKeyGuard implements CanActivate {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly usersService: UsersService,
+    private readonly apiKeyService: ApiKeyService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     const apiKey = this.extractApiKeyFromHeader(request);
 
+    console.log(apiKey);
     if (!apiKey) {
       throw new UnauthorizedException('API key is missing');
     }
 
+    const apiKeyJwt = await this.apiKeyService.findJwtByKey(apiKey);
+
     try {
       // Verify the JWT token
-      const payload = this.jwtService.verify(apiKey, {
+      const payload = this.jwtService.verify(apiKeyJwt, {
         secret: this.configService.get<string>('JWT_SECRET') as string,
       });
 
       // Fetch the user from the database
       const user = await this.usersService.findUserByEmail(payload.email);
+      console.log(user);
 
       if (!user || user.apiKey !== apiKey) {
         throw new UnauthorizedException('Invalid API key');

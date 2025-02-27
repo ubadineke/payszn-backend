@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { AllowedUserUpdateDto, UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -52,7 +51,6 @@ export class UsersService {
     let user = await this.userRepository.findOne({
       where: { wallet },
     });
-    if (!user) throw new NotFoundException('User not found');
     return user;
   }
 

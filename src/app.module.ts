@@ -16,10 +16,13 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { JwtService } from '@nestjs/jwt';
 import { TransactionsService } from './transactions/transactions.service';
 import { Transaction } from './transactions/entities/transaction.entity';
+import { ApiKeyModule } from './api-key/api-key.module';
+import { ApiKeyService } from './api-key/api-key.service';
+import { ApiKey } from './api-key/entities/api-key.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Transaction]),
+    TypeOrmModule.forFeature([ApiKey, Transaction]),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -39,12 +42,14 @@ import { Transaction } from './transactions/entities/transaction.entity';
     TypeOrmModule.forFeature([User]),
     PaymentGatewayModule,
     TransactionsModule,
+    ApiKeyModule,
   ],
   controllers: [AppController, AuthController],
   providers: [
     UsersService,
     TransactionsService,
     JwtService,
+    ApiKeyService,
     AuthService,
     ConfigService,
     PrivyService,

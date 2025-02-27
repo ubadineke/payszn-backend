@@ -8,6 +8,8 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { User } from 'src/users/entities/user.entity';
 import { HttpModule, HttpService } from '@nestjs/axios';
+import { ApiKeyService } from 'src/api-key/api-key.service';
+import { ApiKey } from 'src/api-key/entities/api-key.entity';
 
 @Module({
   imports: [
@@ -19,13 +21,14 @@ import { HttpModule, HttpService } from '@nestjs/axios';
         Accept: 'application/json',
       },
     }),
-    TypeOrmModule.forFeature([User, Transaction]),
+    TypeOrmModule.forFeature([ApiKey, User, Transaction]),
   ],
   controllers: [PaymentGatewayController],
   providers: [
     JwtService,
     TransactionsService,
     UsersService,
+    ApiKeyService,
     PaymentGatewayService,
   ],
 })

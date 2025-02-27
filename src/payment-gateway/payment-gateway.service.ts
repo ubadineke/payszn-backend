@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Connection } from '@solana/web3.js';
 import { TransactionsService } from 'src/transactions/transactions.service';
 import { UsersService } from 'src/users/users.service';
@@ -16,10 +16,16 @@ export class PaymentGatewayService {
     this.connection = new Connection(
       'https://api.mainnet-beta.solana.com',
       'confirmed',
-    ); // Use mainnet or devnet
+    );
   }
 
   async processTransaction(signature: string, expectedReceiver: string) {
+    //Confirm if the merchant exists
+    const user = await this.usersService.findUserByWallet(expectedReceiver);
+
+    if (!user)
+      throw new NotFoundException('Merchant does not exist on this platform');
+
     const confirmedTx = await this.transactionsService.confirmTransaction(
       this.connection,
       signature,
@@ -38,7 +44,7 @@ export class PaymentGatewayService {
     //Send Notification mail to Merchant
 
     //Send update to the appplication registered Webhook
-    const user = await this.usersService.findUserByWallet(expectedReceiver);
+
     const webhookUrl = user.webhookUrl;
     const callbackUrl = user.callbackUrl;
     // const webhookUrl = 'http://localhost:4000/webhook';
