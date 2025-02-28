@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateApiKeyDto } from './dto/create-api-key.dto';
 import { UpdateApiKeyDto } from './dto/update-api-key.dto';
 import { ApiKey } from './entities/api-key.entity';
@@ -47,5 +51,19 @@ export class ApiKeyService {
     if (!apiFac) return { isValid: false };
 
     return { isValid: true };
+  }
+
+  async fetchUserWalletByKey(apiKey: string) {
+    let apiFac = await this.apiKeyRepository.findOne({
+      where: { apiKey },
+      relations: ['user'],
+    });
+
+    if (!apiFac) {
+      throw new BadRequestException('invalid api key');
+    }
+
+    //Return wallet
+    return { wallet: apiFac.user.wallet };
   }
 }

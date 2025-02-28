@@ -24,7 +24,6 @@ export class ApiKeyGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
     const apiKey = this.extractApiKeyFromHeader(request);
 
-    console.log(apiKey);
     if (!apiKey) {
       throw new UnauthorizedException('API key is missing');
     }
@@ -39,7 +38,6 @@ export class ApiKeyGuard implements CanActivate {
 
       // Fetch the user from the database
       const user = await this.usersService.findUserByEmail(payload.email);
-      console.log(user);
 
       if (!user || user.apiKey !== apiKey) {
         throw new UnauthorizedException('Invalid API key');
