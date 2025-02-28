@@ -37,7 +37,7 @@ export class PaymentGatewayController {
     return this.apiKeyService.verifyApiKey(input.api_key);
   }
 
-  @Get('/user')
+  @Get('/wallet')
   async fetchUserWalletByKey(@Query(ValidationPipe) input: VerifyApiKeyDto) {
     return this.apiKeyService.fetchUserWalletByKey(input.api_key);
   }
