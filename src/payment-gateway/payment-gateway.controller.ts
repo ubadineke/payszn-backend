@@ -13,6 +13,7 @@ import { PaymentGatewayService } from './payment-gateway.service';
 import { ProcessTransactionDto } from './dto/process-transaction.dto';
 import { ApiKeyGuard } from 'src/auth/apiKey.guard';
 import { ApiKeyService } from 'src/api-key/api-key.service';
+import { VerifyApiKeyDto } from './dto/verify-api-key.dto';
 
 @Controller('payment-gateway')
 export class PaymentGatewayController {
@@ -22,8 +23,8 @@ export class PaymentGatewayController {
   ) {}
 
   @UseGuards(ApiKeyGuard)
-  @Post('process')
   @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
+  @Post('process')
   async processTransaction(@Body() input: ProcessTransactionDto, @Req() req) {
     return this.paymentGatewayService.processTransaction(
       input.signature,
@@ -32,7 +33,7 @@ export class PaymentGatewayController {
   }
 
   @Get('verify')
-  async verifyApiKey(@Query('api_key') api_key: string) {
-    return this.apiKeyService.verifyApiKey(api_key);
+  async verifyApiKey(@Query(ValidationPipe) input: VerifyApiKeyDto) {
+    return this.apiKeyService.verifyApiKey(input.api_key);
   }
 }

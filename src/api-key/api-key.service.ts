@@ -42,9 +42,9 @@ export class ApiKeyService {
   }
 
   async verifyApiKey(apiKey: string) {
-    let key = await this.apiKeyRepository.findOne({ where: { apiKey } });
+    let apiFac = await this.apiKeyRepository.findOne({ where: { apiKey } });
 
-    if (!key) return { isValid: false };
+    if (!apiFac) return { isValid: false };
 
     return { isValid: true };
   }
