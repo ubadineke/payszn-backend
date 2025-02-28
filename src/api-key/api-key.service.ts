@@ -40,4 +40,12 @@ export class ApiKeyService {
     let key = await this.apiKeyRepository.create({ apiKey, apiKeyJwt, user });
     await this.apiKeyRepository.save(key);
   }
+
+  async verifyApiKey(apiKey: string) {
+    let key = await this.apiKeyRepository.findOne({ where: { apiKey } });
+
+    if (!key) return { isValid: false };
+
+    return { isValid: true };
+  }
 }

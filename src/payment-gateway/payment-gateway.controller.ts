@@ -3,6 +3,7 @@ import {
   Post,
   Query,
   Req,
+  Get,
   Body,
   UsePipes,
   UseGuards,
@@ -11,10 +12,14 @@ import {
 import { PaymentGatewayService } from './payment-gateway.service';
 import { ProcessTransactionDto } from './dto/process-transaction.dto';
 import { ApiKeyGuard } from 'src/auth/apiKey.guard';
+import { ApiKeyService } from 'src/api-key/api-key.service';
 
 @Controller('payment-gateway')
 export class PaymentGatewayController {
-  constructor(private readonly paymentGatewayService: PaymentGatewayService) {}
+  constructor(
+    private readonly paymentGatewayService: PaymentGatewayService,
+    private readonly apiKeyService: ApiKeyService,
+  ) {}
 
   @UseGuards(ApiKeyGuard)
   @Post('process')
@@ -24,5 +29,10 @@ export class PaymentGatewayController {
       input.signature,
       input.expectedReceiver,
     );
+  }
+
+  @Get('verify')
+  async verifyApiKey(@Query('api_key') api_key: string) {
+    return this.apiKeyService.verifyApiKey(api_key);
   }
 }
