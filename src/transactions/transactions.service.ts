@@ -99,15 +99,15 @@ export class TransactionsService {
       }
 
       // Verify if the expected receiver is in the transaction
-      const receiverExists = transaction.transaction.message.accountKeys.some(
-        (key) => key.pubkey.toBase58() === expectedReceiver,
-      );
+      // const receiverExists = transaction.transaction.message.accountKeys.some(
+      //   (key) => key.pubkey.toBase58() === expectedReceiver,
+      // );
 
-      if (!receiverExists) {
-        throw new Error(
-          'Receiver on this transaction does not match merchant wallet',
-        );
-      }
+      // if (!receiverExists) {
+      //   throw new Error(
+      //     'Receiver on this transaction does not match merchant wallet',
+      //   );
+      // }
 
       // Extract the sender (usually the fee payer)
       const sender =
