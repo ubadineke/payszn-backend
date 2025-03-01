@@ -1,99 +1,36 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# PaySZN Documentation
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+PaySZN is a cryptocurrency payment processing platform that facilitates seamless transactions for businesses and individuals. Our infrastructure is designed to efficiently handle payments in multiple cryptocurrencies while ensuring all payouts are settled in USDC. This approach simplifies financial operations, providing stability and predictability for merchants and users.
 
-## Description
+## Key Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Multi-Currency Payment Processing:** Accept payments in a wide range of cryptocurrencies, making it convenient for global transactions.
+- **Automated Payouts in USDC:** Standardized settlements in USDC eliminate volatility concerns and ensure consistency in financial management.
+- **Secure and Scalable Infrastructure:** Our system is built for high performance, security, and scalability, ensuring reliability even under heavy transaction loads.
+- **Compliance and Monitoring:** Integrated compliance measures help detect and prevent fraudulent activities, ensuring regulatory adherence.
+- **Real-Time Transaction Tracking:** Users can monitor transaction statuses with real-time updates, enhancing transparency.
 
-## Project setup
+## Payment Workflow
 
-```bash
-$ npm install
-```
+1. **Merchant Registration:** Merchants sign up on PaySZN and gain access to the platform.
+2. **SDK Integration:** The merchant integrates our React SDK into their platform to enable cryptocurrency payments.
+3. **User Payments:** Customers can make payments using any verified cryptocurrency.
+4. **Transaction Processing:** The system validates transactions and facilitates conversion using the Jupiter API.
+5. **Settlement in USDC:** All payments are finalized and converted to USDC for merchant payouts.
+6. **Payout Execution:** Merchants receive their USDC funds in their designated wallets.
 
-## Compile and run the project
+## Powered by Jupiter API
 
-```bash
-# development
-$ npm run start
+Our payment processing and conversion functionalities are powered by the Jupiter API, ensuring efficient token swaps and seamless settlements.
 
-# watch mode
-$ npm run start:dev
+## Future Developments
 
-# production mode
-$ npm run start:prod
-```
+Currently, we offer a React SDK for seamless integration. Additional SDKs and tools are in development to expand support for more platforms and use cases.
 
-## Run tests
+## Support and Assistance
 
-```bash
-# unit tests
-$ npm run test
+For any inquiries or technical support, please reach out to our support team through our official channels. Our dedicated team is available to ensure smooth operations and assist with integration challenges.
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+email: ubadinekeprince@gmail.com
