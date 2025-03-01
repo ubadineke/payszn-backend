@@ -34,7 +34,7 @@ export class UsersController {
     return this.usersService.findUserByEmail(req.user.email);
   }
 
-  @Get('transactitons')
+  @Get('transactions')
   async getTransactions(@Req() req) {
     return this.usersService.fetchUserTransactions(req.user.wallet);
   }
