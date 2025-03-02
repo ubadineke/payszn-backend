@@ -29,6 +29,8 @@ Our payment processing and conversion functionalities are powered by the Jupiter
 
 Currently, we offer a React SDK for seamless integration. Additional SDKs and tools are in development to expand support for more platforms and use cases.
 
+This service currently powers our [React SDK](https://github.com/inspikalu/payszn-react-sdk) and [Dashboard](https://github.com/inspikalu/payszn-dashboard)
+
 ## Support and Assistance
 
 For any inquiries or technical support, please reach out to our support team through our official channels. Our dedicated team is available to ensure smooth operations and assist with integration challenges.
